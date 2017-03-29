@@ -20,7 +20,6 @@ pro makejeans_p12557,mbh
 
 
         readcol,'nifs_kinematics/pgc12557_wallace_init_sn40.dat',BinNum, X, Y, Npix,SN_expected,SN_measured,chi2,vbin,sbin,h3,h4
-;        a=mrdfits('nifs_kinematics/NGC0722_binning_stellar_kinematics_wingeGNIRS_LSF_noemission_2moments_error_tSN55_deg4_1arcsec.fits',1)
 
         rotate_points, x, y, -sersics[0].pa+15, xbar, ybar	; manually added an offset of 15 degrees. Cube rotation wrt North?
 
