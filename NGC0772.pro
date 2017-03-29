@@ -8,8 +8,8 @@ pro makejeans_n0772,mbh
 	    mge=sersics2mge(sersics,msun,a_b=a_b)
 	    distance=34.4 ; mpc
 	    inc=50.0
-	    normpsf=[1.0]
-	    sigmapsf=[0.16]
+;	    normpsf=[1.0]
+;	    sigmapsf=[0.16]
 	    ;normpsf=[0.6,0.4]
 	    ;sigmapsf=[0.07,0.4]
 		;stop
@@ -29,7 +29,7 @@ pro makejeans_n0772,mbh
 		er_sbin=a.err_sigbin
 		
 	    pixsize=0.05
-;		pixang=-57
+		pixang=-90+sersics[0].pa
 		vbin=vbin-median(vbin)
 		Vrms = sqrt(vbin^2 + sbin^2) 
 		ERMS = sqrt((er_vbin*vbin)^2 + (er_sbin*sbin)^2)/VRMS

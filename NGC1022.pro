@@ -1,6 +1,6 @@
     
 pro makejeans_n1222,mbh
-	    wset,0
+
 	    file='2mass_galfit/NGC1022_aK_asky_981010s1060044_galfit.fits'
 	    sersics=read_galfit_sersics(file)
 	    Msun=3.27 ; Solar luminsoity in Ks band
@@ -9,15 +9,14 @@ pro makejeans_n1222,mbh
 	    mge=sersics2mge(sersics,msun,a_b=a_b)
 	    distance=19.9000 ; mpc
 	    inc=40.0
-	    normpsf=[1.0]
-	    sigmapsf=[0.16]
-	    normpsf=[0.6,0.4]
-	    sigmapsf=[0.07,0.4]
-		;stop
+	    ;normpsf=[1.0]
+	    ;sigmapsf=[0.16]
+	    ;normpsf=[0.6,0.4]
+	    ;sigmapsf=[0.07,0.4]
 		betaz=0.0
         ; Gauss+Moffat: 31% of the light in gaussian of 0.135” FWHM, 69% of the light in Moffat profile of FWHM=1.80", index fixed=4.765.  See attached figure for fit.
-		;normpsf=[0.31,1-0.31]
-		;sigmapsf=[0.135,1.8]/2.35
+		normpsf=[0.31,1-0.31]
+		sigmapsf=[0.135,1.8]/2.35
 
 
   readcol,'nifs_kinematics/NGC1022_binning_stellar_kinematics_wingeGNIRS_LSF_noemission_secondMOM_errorSTD_tSN55_cut12_deg4.txt',$
@@ -26,7 +25,7 @@ pro makejeans_n1222,mbh
 	  
 ;	    xbar+= 0.01
 	    pixsize=0.05
-;		pixang=-57
+		pixang=-57.0
 		vbin=vbin-median(vbin)
 		Vrms = sqrt(vbin^2 + sbin^2) 
 		ERMS = sqrt((er_vbin*vbin)^2 + (er_sbin*sbin)^2)/VRMS
@@ -69,20 +68,6 @@ pro makejeans_n1222,mbh
 	endfor
     oplot,r,rmsmodel,psym=4,color=200
 	
-;	    oplot,r,rmsmodel,psym=4,color=200
-
-;		mbh= 1.5848925e+08   
-;;	    for lmbh=7.0,9,0.1 do begin
-;;		mbh=10d^float(lmbh    )
-;		print,mbh
-;	    jam_axisymmetric_rms, $
-;	        mge[*,0], mge[*,1], mge[*,2], mge[*,0], mge[*,1], mge[*,2], $
-;	        inc, mbh, distance, xbar, ybar, rmsModel, $
-;	        BETA=betaz, RMS=vrms, erms=erms,SIGMAPSF=psf,flux=flux, PIXSIZE=pixsize,pixang=pixang,normpsf=normpsf,ml=ml
-;	    oplot,r,rmsmodel,psym=4,color=200
-;;	endfor
-
-    
 	al_legend,['bh='+strn(alog10(1e5*ml1),format='(G5.2)')+' log(Msun)','bh='+strn(alog10(mbh2*ml2),format='(G5.2)')+' log(Msun)'],/right,psym=[1,4]
 	WRITE_PNG, 'NGC1022_jeans.png', TVRD(/TRUE)
 	    stop
